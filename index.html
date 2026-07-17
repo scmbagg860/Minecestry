@@ -2,49 +2,140 @@
 <html>
 <head>
 <title>Minecestry</title>
+<style>
+  /* Basic styling to help hide/show sections */
+  .hidden {
+    display: none;
+  }
+  #results-screen {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    width: 300px;
+  }
+  .loading-spinner {
+    font-weight: bold;
+    color: #555;
+  }
+</style>
 </head>
 
 <body>
 <h1>Minecestry™</h1>
 <p>Discover your Minecraft ancestry.</p>
 
-<label for="origin-select">What is your origin?</label>
-<br><br>
+<div id="selection-screen">
+  <label for="origin-select">What is your origin?</label>
+  <br><br>
 
-<select id="origin-select">
-  <option value="">-- Choose an Origin --</option>
-  
-  <optgroup label="Bedrock Addon Exclusives">
-    <option value="monster-of-the-depths">Monster of the Depths</option>
-    <option value="fallen-angel">Fallen Angel</option>
-    <option value="troll">Troll</option>
-    <option value="the-cute-one">The Cute One (Cutie)</option>
-    <option value="raccoon-lord">Raccoon Lord</option>
-    <option value="dire-wolf">Dire Wolf</option>
-    <option value="llama">Llama</option>
-    <option value="duck">Duck</option>
-    <option value="rabbit">Rabbit</option>
-    <option value="cow">Cow</option>
-    <option value="slime">Slime</option>
-    <option value="fox">Fox</option>
-  </optgroup>
+  <select id="origin-select">
+    <option value="">-- Choose an Origin --</option>
+    
+    <optgroup label="Bedrock Addon Exclusives">
+      <option value="monster-of-the-depths">Monster of the Depths</option>
+      <option value="fallen-angel">Fallen Angel</option>
+      <option value="troll">Troll</option>
+      <option value="the-cute-one">The Cute One (Cutie)</option>
+      <option value="raccoon-lord">Raccoon Lord</option>
+      <option value="dire-wolf">Dire Wolf</option>
+      <option value="llama">Llama</option>
+      <option value="duck">Duck</option>
+      <option value="rabbit">Rabbit</option>
+      <option value="cow">Cow</option>
+      <option value="slime">Slime</option>
+      <option value="fox">Fox</option>
+    </optgroup>
 
-  <optgroup label="Classic Origins">
-    <option value="human">Human</option>
-    <option value="avian">Avian</option>
-    <option value="arachnid">Arachnid</option>
-    <option value="elytrian">Elytrian</option>
-    <option value="shulk">Shulk</option>
-    <option value="feline">Feline</option>
-    <option value="merling">Merling</option>
-    <option value="blazeborn">Blazeborn</option>
-    <option value="enderian">Enderian</option>
-    <option value="phantom">Phantom</option>
-  </optgroup>
-</select>
+    <optgroup label="Classic Origins">
+      <option value="human">Human</option>
+      <option value="avian">Avian</option>
+      <option value="arachnid">Arachnid</option>
+      <option value="elytrian">Elytrian</option>
+      <option value="shulk">Shulk</option>
+      <option value="feline">Feline</option>
+      <option value="merling">Merling</option>
+      <option value="blazeborn">Blazeborn</option>
+      <option value="enderian">Enderian</option>
+      <option value="phantom">Phantom</option>
+    </optgroup>
+  </select>
 
-<br><br>
-<button id="analyze-btn">Analyze</button>
+  <br><br>
+  <button id="analyze-btn">Analyze</button>
+</div>
+
+<div id="loading-screen" class="hidden">
+  <p class="loading-spinner">Analyzing your genetic block data... Please wait...</p>
+</div>
+
+<div id="results-screen" class="hidden">
+  <h2>Your Ancestry Results</h2>
+  <div id="results-content"></div>
+  <br>
+  <button id="reset-btn">Analyze Again</button>
+</div>
+
+<script>
+  const analyzeBtn = document.getElementById('analyze-btn');
+  const resetBtn = document.getElementById('reset-btn');
+  const selectionScreen = document.getElementById('selection-screen');
+  const loadingScreen = document.getElementById('loading-screen');
+  const resultsScreen = document.getElementById('results-screen');
+  const resultsContent = document.getElementById('results-content');
+  const originSelect = document.getElementById('origin-select');
+
+  analyzeBtn.addEventListener('click', function() {
+    const selectedOrigin = originSelect.value;
+    
+    if (!selectedOrigin) {
+      alert("Please select an origin first!");
+      return;
+    }
+
+    // Hide selection screen and show loading screen
+    selectionScreen.classList.add('hidden');
+    loadingScreen.classList.remove('hidden');
+
+    // Simulate a 2.5 second loading screen
+    setTimeout(function() {
+      loadingScreen.classList.add('hidden');
+      resultsScreen.classList.remove('hidden');
+
+      if (selectedOrigin === 'elytrian') {
+        resultsContent.innerHTML = `
+          <h3>Origin: Elytrian</h3>
+          <hr>
+          <p><strong>Genetic Breakdown:</strong></p>
+          <ul>
+            <li>Pigeon: 45%</li>
+            <li>Chicken: 34.99%</li>
+            <li>Avian: 15%</li>
+            <li>Enderian: 5%</li>
+            <li>Looshian: 0.01%</li>
+          </ul>
+          <hr>
+          <p><strong>Closest Relative Race:</strong> Enderian</p>
+        `;
+      } else {
+        // Placeholder text for any origin that isn't Elytrian yet
+        resultsContent.innerHTML = `
+          <h3>Origin: ${originSelect.options[originSelect.selectedIndex].text}</h3>
+          <hr>
+          <p>Ancestry data for this specific origin is still being decoded!</p>
+        `;
+      }
+    }, 2500); // 2500 milliseconds = 2.5 seconds
+  });
+
+  // Reset button to go back to the start
+  resetBtn.addEventListener('click', function() {
+    resultsScreen.classList.add('hidden');
+    selectionScreen.classList.remove('hidden');
+    originSelect.value = "";
+  });
+</script>
 
 </body>
 </html>
