@@ -8,8 +8,43 @@
 <h1>Minecestry™</h1>
 <p>Discover your Minecraft ancestry.</p>
 
-<input placeholder="Enter your name">
-<button>Analyze</button>
+<label for="origin-select">What is your origin?</label>
+<br><br>
+
+<select id="origin-select">
+  <option value="">-- Choose an Origin --</option>
+  
+  <optgroup label="Bedrock Addon Exclusives">
+    <option value="monster-of-the-depths">Monster of the Depths</option>
+    <option value="fallen-angel">Fallen Angel</option>
+    <option value="troll">Troll</option>
+    <option value="the-cute-one">The Cute One (Cutie)</option>
+    <option value="raccoon-lord">Raccoon Lord</option>
+    <option value="dire-wolf">Dire Wolf</option>
+    <option value="llama">Llama</option>
+    <option value="duck">Duck</option>
+    <option value="rabbit">Rabbit</option>
+    <option value="cow">Cow</option>
+    <option value="slime">Slime</option>
+    <option value="fox">Fox</option>
+  </optgroup>
+
+  <optgroup label="Classic Origins">
+    <option value="human">Human</option>
+    <option value="avian">Avian</option>
+    <option value="arachnid">Arachnid</option>
+    <option value="elytrian">Elytrian</option>
+    <option value="shulk">Shulk</option>
+    <option value="feline">Feline</option>
+    <option value="merling">Merling</option>
+    <option value="blazeborn">Blazeborn</option>
+    <option value="enderian">Enderian</option>
+    <option value="phantom">Phantom</option>
+  </optgroup>
+</select>
+
+<br><br>
+<button id="analyze-btn">Analyze</button>
 
 </body>
 </html>
